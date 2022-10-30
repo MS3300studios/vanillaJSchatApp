@@ -1,0 +1,12 @@
+GET jsonplaceholder.typicode.com/todos/
+
+
+###
+
+POST jsonplaceholder.typicode.com/posts
+
+
+###
+
+
+GET api.nasa.gov/planetary/apod?api_key=uEuyR2EpdWGg8m6l5T0MNXHdBvNajxjnZke6A3Ab
