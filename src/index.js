@@ -2,16 +2,24 @@ import io from 'socket.io-client';
 const socket = io("http://localhost:3000");
 let userId = null;
 
-const sendMessageButton = document.getElementById("sendButton");
-sendMessageButton.addEventListener('click', () => {
-    const sendInput = document.getElementById("sendInput");
+const postMessage = () => {
     if(sendInput.value <= 0) return;
     socket.emit("sendMessage", sendInput.value);
-});
+    sendInput.value = "";
+}
 
 const usersButton = document.getElementById("getUsers");
 usersButton.addEventListener('click', () => {
     socket.emit("showUsers");
+});
+
+const sendInput = document.getElementById("sendInput");
+const sendMessageButton = document.getElementById("sendButton");
+sendMessageButton.addEventListener('click', postMessage);
+sendInput.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        postMessage();
+    }
 });
 
 socket.on("returnId", data => {
@@ -25,7 +33,10 @@ socket.on("dispatchMessage", data => {
     messageElement.classList.add("messageContainer");
     const innerDiv = document.createElement("div");
     innerDiv.classList.add("message");
-    if(data.uid !== userId) innerDiv.classList.add("outside");
+    if(data.uid !== userId){
+        innerDiv.classList.add("outside");
+        messageElement.classList.add("move-left");
+    }
     const textParagraph = document.createElement("p");
     textParagraph.classList.add("content")
     textParagraph.innerText = data.msg.messageText;

@@ -65,10 +65,13 @@ input:focus{
 .messages {
     height: 400px;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .messageContainer {
     width: 100%;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .message {
@@ -76,14 +79,16 @@ input:focus{
     padding: 5px;
     border: 3px solid black;
     background-color: lightgreen;
-    float: right;
     margin: 10px 0px;
     overflow-wrap: break-word;
 }
 
 .outside{
-    float: left;
     background-color: lightblue;
+}
+
+.move-left{
+    justify-content: flex-start;
 }
 
 .content {
