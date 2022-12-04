@@ -1,0 +1,77 @@
+html{
+    margin: 0px;
+    padding: 0px;
+}
+
+body{
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    justify-content: center;
+}
+
+main{
+    border: 3px solid blue;
+    width: 60%;
+    padding: 5px;
+}
+
+.bottomNavigation{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.bottomNavigation > input {
+    width: 60%;
+    border: none;
+    border-bottom: 3px solid yellowgreen;
+    font-size: 20px;
+    font-weight: 550;
+}
+
+.bottomNavigation > input:focus {
+    outline: none;
+}
+
+.bottomNavigation > button{
+    border-radius: 20px;
+    border: none;
+    background-color: greenyellow;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.bottomNavigation > button:hover{
+    background-color: rgb(87, 129, 24);
+    color: white;
+}
+
+.messageContainer{
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+.left{
+    justify-content: flex-start;
+}
+
+.foreign{
+    background-color: rgb(196, 107, 87) !important;
+}
+
+.message{
+    width: 40%;
+    background-color: aquamarine;
+}
+
+.messageInfo{
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 10px;
+}
+
+.textContainer{
+    padding: 0px 10px;
+}

@@ -1,53 +1,57 @@
 import io from 'socket.io-client';
+import moment from 'moment';
 const socket = io("http://localhost:3000");
-let userId = null;
 
-const postMessage = () => {
-    if(sendInput.value <= 0) return;
-    socket.emit("sendMessage", sendInput.value);
-    sendInput.value = "";
-}
+const button = document.getElementById("send");
+const input = document.getElementById("input");
+let userId;
 
-const usersButton = document.getElementById("getUsers");
-usersButton.addEventListener('click', () => {
-    socket.emit("showUsers");
-});
+button.addEventListener("click", () => {
+    if(input.value === "") return;
 
-const sendInput = document.getElementById("sendInput");
-const sendMessageButton = document.getElementById("sendButton");
-sendMessageButton.addEventListener('click', postMessage);
-sendInput.addEventListener('keypress', function (e) {
-    if (e.key === 'Enter') {
-        postMessage();
-    }
-});
-
-socket.on("returnId", data => {
-    userId = data.uid;
-    const uidText = document.getElementsByClassName("uid")[0];
-    uidText.innerHTML = `Your ID is: ${data.uid}`
-});
-
-socket.on("dispatchMessage", data => {
-    const messageElement = document.createElement("div");
-    messageElement.classList.add("messageContainer");
-    const innerDiv = document.createElement("div");
-    innerDiv.classList.add("message");
-    if(data.uid !== userId){
-        innerDiv.classList.add("outside");
-        messageElement.classList.add("move-left");
-    }
-    const textParagraph = document.createElement("p");
-    textParagraph.classList.add("content")
-    textParagraph.innerText = data.msg.messageText;
-    const dateParagraph = document.createElement("p");
-    dateParagraph.classList.add("date");
-    dateParagraph.innerText = data.msg.date;
-
-    innerDiv.appendChild(textParagraph);
-    innerDiv.appendChild(dateParagraph);
-    messageElement.appendChild(innerDiv);
-
-    const messagesContainer = document.getElementsByClassName("messages")[0];
-    messagesContainer.appendChild(messageElement);
+    socket.emit("message", input.value);
+    input.value = "";
 })
+
+socket.on('welcome', id => {
+    userId = id;
+})
+
+socket.on('receiveMessage', response => {
+    const isOur = response.userId === userId;
+
+    const messageContainer = document.createElement("div");
+    messageContainer.classList.add("messageContainer");
+    if(!isOur) messageContainer.classList.add("left");
+
+    const innerMessage = document.createElement('div');
+    innerMessage.classList.add('message');
+    if(!isOur) innerMessage.classList.add("foreign");
+
+    const messageInfo = document.createElement("div");
+    messageInfo.classList.add("messageInfo");
+
+    const username = document.createElement("p");
+    username.innerText = "Jake"
+    username.classList.add("username");
+
+    const date = document.createElement("p");
+    date.innerText = moment().format('MMMM Do YYYY, h:mm:ss a'); 
+    date.classList.add("date");
+
+    const textContainer = document.createElement("div");
+    textContainer.classList.add("textContainer");
+
+    const textParagraph = document.createElement('p');
+    textParagraph.innerText = response.message;
+
+    messageContainer.appendChild(innerMessage);
+    innerMessage.appendChild(messageInfo);
+    messageInfo.appendChild(username);
+    messageInfo.appendChild(date);
+    innerMessage.appendChild(textContainer);
+    textContainer.appendChild(textParagraph);
+
+    const mainMessageContainer = document.getElementsByClassName("messages")[0];
+    mainMessageContainer.appendChild(messageContainer);
+});

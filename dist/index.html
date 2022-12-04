@@ -4,29 +4,40 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to the chat</title>
-    <link rel="stylesheet" href="./style.css">
+    <title>My Chat application</title>
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-    <script src="./main.js" type="module"></script>
-
     <main>
-
-        <div class="center">
-            <div class="headerContainer">
-                <h1>Welcome to the chat</h1>
-                <p class="uid"></p>
-                <button id="getUsers">users (server side)</button>
+        <div class="messages">
+            <div class="messageContainer left">
+                <div class="message foreign">
+                    <div class="messageInfo">
+                        <p class="username">Jake</p>
+                        <p class="date">03.12.22 18:13</p>
+                    </div>
+                    <div class="textContainer">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est blanditiis maiores voluptatum ducimus veniam asperiores distinctio porro quam numquam eos?</p>
+                    </div>
+                </div>
             </div>
-            <div class="messages"> 
-            </div>
-            <div class="inputContainer">
-                <input type="text" name="send" id="sendInput">
-                <button id="sendButton">send</button>
+            <div class="messageContainer">
+                <div class="message">
+                    <div class="messageInfo">
+                        <p class="username">Jack</p>
+                        <p class="date">03.12.22 18:14</p>
+                    </div>
+                    <div class="textContainer">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est blanditiis maiores voluptatum ducimus veniam asperiores distinctio porro quam numquam eos?</p>
+                    </div>
+                </div>
             </div>
         </div>
-
-    </main>
-
+        <div class="bottomNavigation">
+            <input type="text" id="input">
+            <button id="send">send message</button>
+        </div>
+    </main>    
+    <script src="./main.js"></script>
 </body>
 </html>
